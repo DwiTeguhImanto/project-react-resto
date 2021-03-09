@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar Axios </title>
+    <title>Export Import JavaScript</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
+    
 
     <div class="container">
         <div class="row mt-4">
@@ -28,128 +29,25 @@
             <div id="out"></div>
         </div>
     </div>
-    
 
-    <script>
+    <script type="module">
+        // import {get,show,siswa} from './function.js';
 
-        const url = "http://localhost:8000/api";
-        const token = "mM9ro3ajcGXhxZvLE2FlCRF5AHqhVmGLrC6Ho6dM";
-        // axios({
-        //     method:'get',
-        //     url : url,
-        //     headers:{
-        //         'api_token' : token
-        //     }
-        // }).then(res=>console.log(res));
-
-        const link = axios.create({
-            baseURL : url,
-            headers : {
-                'api_token' : token
-            }
-        });
-
-        function get() {
-           link.get('/pelanggan').then(res=>{
-
-            console.log(res);
-
-                let tampil = `<table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Pelanggan</th>
-                            <th>Alamat</th>
-                            <th>Telp</th>
-                        </tr>
-                    `;
-                
-                res.data.forEach(el=>{
-                    tampil += `<tr>
-                            <td>${el.idpelanggan}</td>
-                            <td>${el.pelanggan}</td>
-                            <td>${el.alamat}</td>
-                            <td>${el.telp}</td>
-                        </tr>`
-                });  
-                
-                tampil += `</table>`;
-                document.querySelector('#out').innerHTML = tampil;
-           });
-        }
-
-        function show() {
-            let id = 6;
-            link.get('/pelanggan/'+id).then(res=>{
-
-                let tampil = `<table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Pelanggan</th>
-                            <th>Alamat</th>
-                            <th>Telp</th>
-                        </tr>
-                    `;
-                
-                res.data.forEach(el=>{
-                    tampil += `<tr>
-                            <td>${el.idpelanggan}</td>
-                            <td>${el.pelanggan}</td>
-                            <td>${el.alamat}</td>
-                            <td>${el.telp}</td>
-                        </tr>`
-                });  
-                
-                tampil += `</table>`;
-                document.querySelector('#out').innerHTML = tampil;
-            });
-        }
-
-        function post() {
-            let data = {
-                pelanggan : 'pelanggan axios',
-                alamat : 'alamat axios',
-                telp : '0897852'
-            }
-
-            link.post('/pelanggan',data).then(res=>{
-                console.log(res);
-                let tampil = `<h1>${res.data.pesan}</h1>`;
-                document.querySelector('#out').innerHTML = tampil;
-            });
-        }
-
-        function hapus(){
-            let id = 11 ;
-
-            link.delete('/pelanggan/'+id).then(res=>{
-                console.log(res);
-                let tampil = `<h1>${res.data.pesan}</h1>`;
-                document.querySelector('#out').innerHTML = tampil;
-            });
-        }
-
-        function ubah() {
-           let id = 12;
-           let data = {
-               pelanggan : 'update pelanggan axios',
-               alamat : 'update pelanggan axios',
-               telp : 823648754
-           }
-
-           link.put('/pelanggan/'+id,data).then(res=>{
-               console.log(res);
-               let tampil = `<h1>${res.data.pesan}</h1>`;
-               document.querySelector('#out').innerHTML = tampil;
-            });
-        }
+        // get();
+        // show();
+        // console.log(siswa);
+        import {get} from './get.js';
+        import {show} from './show.js';
+        import {post} from './post.js';
+        import {hapus} from './delete.js';
+        import {ubah} from './update.js';
+        document.querySelector("#get").addEventListener("click",get);
+        document.querySelector("#show").addEventListener("click",show);
+        document.querySelector("#post").addEventListener("click",post);
+        document.querySelector("#del").addEventListener("click",hapus);
+        document.querySelector("#del").addEventListener("click",hapus);
+        document.querySelector("#update").addEventListener("click",ubah);
         
-        document.querySelector('#get').addEventListener('click',get);
-        document.querySelector('#show').addEventListener('click',show);
-        document.querySelector('#post').addEventListener('click',post);
-        document.querySelector('#del').addEventListener('click',hapus);
-        document.querySelector('#update').addEventListener('click',ubah);
-
-
     </script>
 </body>
 </html>
